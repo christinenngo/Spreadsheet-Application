@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "bootstrap": "^5.3.8",
+    "react-bootstrap": "^2.10.10",
+    "react-router-dom": "^7.9.6",
+    "serve": "^14.2.5",
+    "springboot": "^0.1.0"
+  }
+}
