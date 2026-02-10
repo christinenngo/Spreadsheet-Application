@@ -5,10 +5,11 @@ import spreadsheet.Model.Cell.CellValue;
 public class DivideOperator extends OperatorExpression {
     @Override
     public CellValue evaluate() {
-        double quotient = 0.0;
-        for (Expression operand : operands) {
-            quotient /= operand.evaluate().asDouble();
-        }
-        return new CellValue(quotient);
+        double result = operands.stream()
+                .mapToDouble(num -> num.evaluate().asDouble())
+                .filter(num -> num != 0)
+                .reduce((a, b) -> a / b)
+                .orElse(0.0);
+        return new CellValue(result);
     }
 }

@@ -5,10 +5,10 @@ import spreadsheet.Model.Cell.CellValue;
 public class MultiplyOperator extends OperatorExpression {
     @Override
     public CellValue evaluate() {
-        double product = 0.0;
-        for (Expression operand : operands) {
-            product *= operand.evaluate().asDouble();
-        }
-        return new CellValue(product);
+        double result = operands.stream()
+                .mapToDouble(num -> num.evaluate().asDouble())
+                .reduce((a, b) -> a * b)
+                .orElse(0.0);
+        return new CellValue(result);
     }
 }

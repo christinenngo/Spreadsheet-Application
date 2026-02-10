@@ -5,10 +5,9 @@ import spreadsheet.Model.Cell.CellValue;
 public class AddOperator extends OperatorExpression {
     @Override
     public CellValue evaluate() {
-        double sum = 0.0;
-        for (Expression operand : operands) {
-            sum += operand.evaluate().asDouble();
-        }
-        return new CellValue(sum);
+        double result = operands.stream()
+                .mapToDouble(num -> num.evaluate().asDouble())
+                .sum();
+        return new CellValue(result);
     }
 }
