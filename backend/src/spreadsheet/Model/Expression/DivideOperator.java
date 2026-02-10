@@ -7,8 +7,12 @@ public class DivideOperator extends OperatorExpression {
     public CellValue evaluate() {
         double result = operands.stream()
                 .mapToDouble(num -> num.evaluate().asDouble())
-                .filter(num -> num != 0)
-                .reduce((a, b) -> a / b)
+                .reduce((a, b) -> {
+                    if (b == 0) {
+                        throw new ArithmeticException("Division by zero");
+                    }
+                    return a / b;
+                })
                 .orElse(0.0);
         return new CellValue(result);
     }

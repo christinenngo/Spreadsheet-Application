@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.function.Supplier;
 
 public class OperatorFactory {
-    public OperatorExpression getOperator(String operatorType) {
+    public static OperatorExpression getOperator(String operatorType) {
         Supplier<OperatorExpression> ADD = AddOperator::new;
         Supplier<OperatorExpression> SUBTRACT = SubtractOperator::new;
         Supplier<OperatorExpression> MULTIPLY = MultiplyOperator::new;
