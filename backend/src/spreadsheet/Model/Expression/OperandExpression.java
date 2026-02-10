@@ -4,10 +4,10 @@ import spreadsheet.Model.Cell.CellValue;
 
 import java.util.ArrayList;
 
-public class Operand implements Expression {
+public class OperandExpression implements Expression {
     private final CellValue value;
 
-    public Operand(double val) {
+    public OperandExpression(double val) {
         this.value = new CellValue(val);
     }
 

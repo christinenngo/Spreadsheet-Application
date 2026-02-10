@@ -2,7 +2,7 @@ package spreadsheet.Model.Expression;
 
 import spreadsheet.Model.Cell.CellValue;
 
-public class Multiply extends AbstractExpression {
+public class MultiplyOperator extends AbstractExpression {
     @Override
     public CellValue evaluate() {
         double product = 0.0;

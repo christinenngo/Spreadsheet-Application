@@ -2,13 +2,14 @@ package spreadsheet.Model.Expression;
 
 import spreadsheet.Model.Cell.CellValue;
 
-public class Divide extends AbstractExpression {
+public class SubtractOperator extends AbstractExpression {
     @Override
     public CellValue evaluate() {
-        double quotient = 0.0;
+        double difference = 0.0;
         for (Expression operand : operands) {
-            quotient /= operand.evaluate().asDouble();
+            difference -= operand.evaluate().asDouble();
         }
-        return new CellValue(quotient);
+        return new CellValue(difference);
     }
+
 }

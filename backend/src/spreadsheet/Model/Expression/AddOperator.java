@@ -2,7 +2,7 @@ package spreadsheet.Model.Expression;
 
 import spreadsheet.Model.Cell.CellValue;
 
-public class Add extends AbstractExpression {
+public class AddOperator extends OperatorExpression {
     @Override
     public CellValue evaluate() {
         double sum = 0.0;
