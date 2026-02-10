@@ -14,3 +14,5 @@ Christine Ngo
 > Implemented OperatorExpression as an abstract class to allow for different types of operator expressions that share common functionality without having to reimplement the same methods for each, which allows for better code reuse and easier maintenance.
 > 
 > Made the DivideOperator throw an ArithmeticException when dividing by zero to handle the edge case and prevent undefined results.
+> 
+> I used TDD development by writing tests for the parser and evaluator before implementing the logic for them, which helped ensure that the code was correct and met the requirements. This also made it easier to debug and refactor as I had tests to catch any issues during development.
