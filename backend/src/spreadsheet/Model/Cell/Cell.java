@@ -15,7 +15,7 @@ import spreadsheet.Model.Expression.Expression;
 /**
  * Cell class representing a single cell in the spreadsheet.
  */
-public class Cell {
+public class Cell extends CellComponent {
     /*The current value of the cell, either a constant or the result of evaluating its expression
     * if the expression of the cell is not null, then "value" holds the value the expression evaluates to.
     * */
@@ -52,5 +52,15 @@ public class Cell {
         return this.expression;
     }
 
+    void add(CellComponent newCellComponent){
+        throw new UnsupportedOperationException("Method is for cell groups only.");
+    }
 
+    void remove(CellComponent newCellComponent){
+        throw new UnsupportedOperationException("Method is for cell groups only.");
+    }
+
+    CellComponent getCellComponent(int componentIndex){
+        throw new UnsupportedOperationException("Method is for cell groups only.");
+    }
 }
