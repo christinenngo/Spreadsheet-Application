@@ -15,13 +15,4 @@ public class OperandExpression extends AbstractExpression {
         return value;
     }
 
-    @Override
-    public void addOperand(Expression... expression) {
-        throw new UnsupportedOperationException("Not supported.");
-    }
-
-    @Override
-    public ArrayList<Expression> getOperands() {
-        return new ArrayList<>();
-    }
 }

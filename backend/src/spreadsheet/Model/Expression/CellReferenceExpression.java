@@ -5,24 +5,15 @@ import spreadsheet.Model.Cell.CellValue;
 
 import java.util.ArrayList;
 
-public class CellReferenceExpression extends AbstractExpression {
+public class CellReferenceExpression extends OperatorExpression {
     private CellComponent cellComponent;
 
     public CellReferenceExpression(CellComponent cellComponent) {
         this.cellComponent = cellComponent;
     }
 
+    @Override
     public CellValue evaluate() {
         return cellComponent.getCellValue();
-    }
-
-    @Override
-    public void addOperand(Expression... expression) {
-        throw new UnsupportedOperationException("Not supported.");
-    }
-
-    @Override
-    public ArrayList<Expression> getOperands() {
-        return new ArrayList<>();
     }
 }

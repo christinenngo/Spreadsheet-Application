@@ -19,6 +19,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import spreadsheet.Model.Cell.CellComponent;
+import spreadsheet.Model.Cell.CellGroup;
 import spreadsheet.Model.CellRepository;
 import spreadsheet.Model.Expression.*;
 
@@ -298,28 +299,46 @@ public class ExpressionParser {
      */
     public static Expression postfixToExpression(Queue<String> outputQueue){
         Deque<Expression> stack = new ArrayDeque<>();
-        OperatorFactory factory = new OperatorFactory();
 
         while(!outputQueue.isEmpty()){
             String token = outputQueue.poll();
 
-            if (isConstant(token)){
+            if (isConstant(token)){ // constant
                 // Create constant Expression and push to stack
                 stack.push(new OperandExpression(Double.parseDouble(token)));
-            } else if (isCellSymbol(token)){
+            } else if (isCellSymbol(token)){ // cell references
                 // Create cell reference Expression and push to stack
                 if (!token.contains(":")) {
                     int[] parsedCoords = parseCellFormat(token);
                     CellComponent cellComponent = CellRepository.getInstance().getReferenceCell(parsedCoords[1], parsedCoords[0]);
                     stack.push(new CellReferenceExpression(cellComponent));
-                } else {
-                    // cell ranges
-                }
+                } else { // aggregate operator
+                    int index = token.indexOf(":");
+                    int[] leftCoords = parseCellFormat(token.substring(0, index));
+                    CellComponent leftCellComponent = CellRepository.getInstance().getReferenceCell(leftCoords[1], leftCoords[0]);
+                    stack.push(new CellReferenceExpression(leftCellComponent));
 
+                    int[] rightCoords = parseCellFormat(token.substring(index + 1));
+                    CellComponent rightCellComponent = CellRepository.getInstance().getReferenceCell(rightCoords[1], rightCoords[0]);
+                    stack.push(new CellReferenceExpression(rightCellComponent));
+
+                    CellComponent cellGroup = new CellGroup();
+                    for(int j = leftCoords[0]; j <= rightCoords[0]; j++){
+                        for(int k = leftCoords[1]; k <= rightCoords[1]; k++){
+                            cellGroup.add(CellRepository.getInstance().getReferenceCell(k, j));
+                        }
+                    }
+                    stack.push(new CellReferenceExpression(cellGroup));
+                }
             }  else {
                 // Create operator Expression; pop operands from stack; push operator to stack
-                int arguments = 2;
-                OperatorExpression expression = factory.getOperator(token);
+                int arguments = 0;
+                if(isAggregateSymbol(token)){
+                    arguments = Integer.parseInt(outputQueue.poll());
+                } else if (isArithmeticSymbol(token)){
+                    arguments = 2;
+                }
+                OperatorExpression expression = OperatorFactory.getOperator(token);
                 ArrayList<Expression> tempOperands = new ArrayList<>();
 
                 for (int i = 0; i < arguments; i++) {

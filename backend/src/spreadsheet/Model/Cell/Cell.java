@@ -9,7 +9,6 @@
  */
 package spreadsheet.Model.Cell;
 
-import java.util.ArrayList;
 import spreadsheet.Model.Expression.Expression;
 
 /**
@@ -52,11 +51,15 @@ public class Cell extends CellComponent {
         return this.expression;
     }
 
-    void add(CellComponent newCellComponent){
+    public int getNumCellComponents() {
+        return 1;
+    }
+
+    public void add(CellComponent newCellComponent){
         throw new UnsupportedOperationException("Method is for cell groups only.");
     }
 
-    void remove(CellComponent newCellComponent){
+    public void remove(CellComponent newCellComponent){
         throw new UnsupportedOperationException("Method is for cell groups only.");
     }
 

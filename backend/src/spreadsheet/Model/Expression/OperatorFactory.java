@@ -9,12 +9,17 @@ public class OperatorFactory {
         Supplier<OperatorExpression> SUBTRACT = SubtractOperator::new;
         Supplier<OperatorExpression> MULTIPLY = MultiplyOperator::new;
         Supplier<OperatorExpression> DIVIDE = DivideOperator::new;
+        Supplier<OperatorExpression> SUM = SumOperator::new;
+        Supplier<OperatorExpression> COUNT = CountOperator::new;
 
         HashMap<String, Supplier<OperatorExpression>> operators = new HashMap<>();
         operators.put("+", ADD);
         operators.put("-", SUBTRACT);
         operators.put("*", MULTIPLY);
         operators.put("/", DIVIDE);
+        operators.put("SUM", SUM);
+        operators.put("COUNT", COUNT);
+//        operators.put("AVE", AVE);
 
         return operators.get(operatorType).get();
     }

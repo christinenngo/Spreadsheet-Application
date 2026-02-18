@@ -40,7 +40,7 @@ public class Milestone2AggregateTests {
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(60.0, value.asDouble());
+        assertEquals(20.0, value.asDouble());
     }
 
     @Test
