@@ -72,7 +72,7 @@ public class Milestone2CellReferenceTests{
     }
 
     @Test
-    public void testCellReferenceAddition1() {
+    public void testSingleCellReferenceAddition1() {
         String raw = "=A1 + 20";
         Expression expression = ExpressionParser.convertExpression(raw);
 
@@ -81,7 +81,7 @@ public class Milestone2CellReferenceTests{
     }
 
     @Test
-    public void testCellReferenceAddition2() {
+    public void testSingleCellReferenceAddition2() {
         String raw = "=A1 + D2";
         Expression expression = ExpressionParser.convertExpression(raw);
 
@@ -90,7 +90,7 @@ public class Milestone2CellReferenceTests{
     }
 
     @Test
-    public void testCellReferenceComplex1() {
+    public void testSingleCellReferenceComplex1() {
         String raw = "=A1*((100-B1)/((B1+D1)/D1))";
         Expression expression = ExpressionParser.convertExpression(raw);
 
@@ -99,11 +99,39 @@ public class Milestone2CellReferenceTests{
     }
 
     @Test
-    public void testCellReferenceComplex2() {
+    public void testSingleCellReferenceComplex2() {
         String raw = "=A1+C2*(D2+100/(10+B1+D1))";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
         assertEquals(10.0, value.asDouble());
     }
+
+    @Test
+    public void testSingleCellSum() {
+        String raw = "=sum(A1,B1)";
+        Expression expression = ExpressionParser.convertExpression(raw);
+
+        CellValue value = expression.evaluate();
+        assertEquals(30.0, value.asDouble());
+    }
+
+    @Test
+    public void testCellGroupSum() {
+        String raw = "=sum(A1:B2)";
+        Expression expression = ExpressionParser.convertExpression(raw);
+
+        CellValue value = expression.evaluate();
+        assertEquals(100.0, value.asDouble());
+    }
+
+    @Test
+    public void testCellGroupSumComplex() {
+        String raw = "=sum(A1:B2, D1, 10/2)";
+        Expression expression = ExpressionParser.convertExpression(raw);
+
+        CellValue value = expression.evaluate();
+        assertEquals(110.0, value.asDouble());
+    }
+
 }
