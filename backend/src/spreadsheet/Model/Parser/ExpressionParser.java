@@ -18,11 +18,9 @@ import java.util.Queue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import spreadsheet.Model.Cell.CellComponent;
 import spreadsheet.Model.CellRepository;
-import spreadsheet.Model.Expression.Expression;
-import spreadsheet.Model.Expression.OperandExpression;
-import spreadsheet.Model.Expression.OperatorExpression;
-import spreadsheet.Model.Expression.OperatorFactory;
+import spreadsheet.Model.Expression.*;
 
 /**
  * ExpressionParser is responsible for converting a string literal to a computable "Expression"
@@ -310,7 +308,14 @@ public class ExpressionParser {
                 stack.push(new OperandExpression(Double.parseDouble(token)));
             } else if (isCellSymbol(token)){
                 // Create cell reference Expression and push to stack
-                throw new IllegalArgumentException("Cell references not implemented yet");
+                if (!token.contains(":")) {
+                    int[] parsedCoords = parseCellFormat(token);
+                    CellComponent cellComponent = CellRepository.getInstance().getReferenceCell(parsedCoords[1], parsedCoords[0]);
+                    stack.push(new CellReferenceExpression(cellComponent));
+                } else {
+                    // cell ranges
+                }
+
             }  else {
                 // Create operator Expression; pop operands from stack; push operator to stack
                 int arguments = 2;

@@ -1,18 +1,19 @@
 package spreadsheet.Model.Expression;
 
+import spreadsheet.Model.Cell.CellComponent;
 import spreadsheet.Model.Cell.CellValue;
 
 import java.util.ArrayList;
 
-public class OperandExpression extends AbstractExpression {
-    private final CellValue value;
+public class CellReferenceExpression extends AbstractExpression {
+    private CellComponent cellComponent;
 
-    public OperandExpression(double val) {
-        this.value = new CellValue(val);
+    public CellReferenceExpression(CellComponent cellComponent) {
+        this.cellComponent = cellComponent;
     }
 
     public CellValue evaluate() {
-        return value;
+        return cellComponent.getCellValue();
     }
 
     @Override

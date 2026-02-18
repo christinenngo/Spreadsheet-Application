@@ -28,7 +28,11 @@ public class CellGroup extends CellComponent {
         return (CellComponent)cellComponents.get(componentIndex);
     }
 
-    CellValue getCellValue() {
+    public CellValue getCellValue() {
+        throw new UnsupportedOperationException("Method is for cells only.");
+    }
+
+    public CellValue setCellValue(CellValue cellValue) {
         throw new UnsupportedOperationException("Method is for cells only.");
     }
 

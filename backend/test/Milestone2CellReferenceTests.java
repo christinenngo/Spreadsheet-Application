@@ -37,6 +37,15 @@ public class Milestone2CellReferenceTests{
 
     @Test
     public void testSingleCellReference1() {
+        String raw = "=A1";
+        Expression expression = ExpressionParser.convertExpression(raw);
+
+        CellValue value = expression.evaluate();
+        assertEquals(10.0, value.asDouble());
+    }
+
+    @Test
+    public void testSingleCellReference2() {
         String raw = "=A2";
         Expression expression = ExpressionParser.convertExpression(raw);
 
@@ -45,7 +54,7 @@ public class Milestone2CellReferenceTests{
     }
 
     @Test
-    public void testSingleCellReference2() {
+    public void testSingleCellReference3() {
         String raw = "=B1";
         Expression expression = ExpressionParser.convertExpression(raw);
 

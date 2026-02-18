@@ -15,6 +15,7 @@ import java.util.Map;
 
 import spreadsheet.Model.Cell.Cell;
 import org.springframework.stereotype.Repository;
+import spreadsheet.Model.Cell.CellComponent;
 import spreadsheet.Model.Cell.CellValue;
 
 /**
@@ -94,7 +95,7 @@ public class CellRepository {
      * @param target the target CellComponent
      * @return the CellCoord of the target, or null if not found
      */
-    public CellCoord findCellCoord(Cell target) {
+    public CellCoord findCellCoord(CellComponent target) {
         try {
             for (Map.Entry<CellCoord, Cell> e : cellMap.entrySet()) {
                 if (e.getValue() == target) return e.getKey();

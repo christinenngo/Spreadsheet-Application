@@ -6,6 +6,7 @@ public abstract class CellComponent {
     abstract void add(CellComponent newCellComponent);
     abstract void remove(CellComponent newCellComponent);
     abstract CellComponent getCellComponent(int componentIndex);
-    abstract CellValue getCellValue();
+    public abstract CellValue getCellValue();
+    public abstract CellValue setCellValue(CellValue cellValue);
     abstract Expression getExpression();
 }
