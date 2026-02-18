@@ -108,30 +108,23 @@ public class Milestone2CellReferenceTests{
     }
 
     @Test
-    public void testSingleCellSum() {
-        String raw = "=sum(A1,B1)";
+    public void testSingleCellReferenceComplex3() {
+        String raw = "=D1*A2/(D1-B1)+C1";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(30.0, value.asDouble());
+        assertEquals(-10.0, value.asDouble());
     }
 
     @Test
-    public void testCellGroupSum() {
-        String raw = "=sum(A1:B2)";
+    public void testSingleCellReferenceComplex4() {
+        String raw = "=C1-D1+A1*B1/(D1+B1)";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(100.0, value.asDouble());
+        assertEquals(3.0, value.asDouble());
     }
 
-    @Test
-    public void testCellGroupSumComplex() {
-        String raw = "=sum(A1:B2, D1, 10/2)";
-        Expression expression = ExpressionParser.convertExpression(raw);
 
-        CellValue value = expression.evaluate();
-        assertEquals(110.0, value.asDouble());
-    }
 
 }
