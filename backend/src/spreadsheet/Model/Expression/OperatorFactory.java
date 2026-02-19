@@ -11,6 +11,7 @@ public class OperatorFactory {
         Supplier<OperatorExpression> DIVIDE = DivideOperator::new;
         Supplier<OperatorExpression> SUM = SumOperator::new;
         Supplier<OperatorExpression> COUNT = CountOperator::new;
+        Supplier<OperatorExpression> COUNTA = CountAOperator::new;
 
         HashMap<String, Supplier<OperatorExpression>> operators = new HashMap<>();
         operators.put("+", ADD);
@@ -19,6 +20,7 @@ public class OperatorFactory {
         operators.put("/", DIVIDE);
         operators.put("SUM", SUM);
         operators.put("COUNT", COUNT);
+        operators.put("COUNTA", COUNTA);
 //        operators.put("AVE", AVE);
 
         return operators.get(operatorType).get();

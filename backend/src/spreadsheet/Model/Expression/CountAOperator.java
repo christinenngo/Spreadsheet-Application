@@ -5,16 +5,18 @@ import spreadsheet.Model.Cell.CellValue;
 
 import java.util.ArrayList;
 
-public class CountOperator extends OperatorExpression {
+public class CountAOperator extends OperatorExpression {
     @Override
     public CellValue evaluate() {
         int count = 0;
 
         for(Expression operand : operands) {
             if(operand instanceof CellReferenceExpression cellReferenceExpression) {
-                count += cellReferenceExpression.getCellComponent().getNumCells();
+                count += cellReferenceExpression.getCellComponent().getNumNonEmptyCells();
             } else {
-                count++;
+                if(operand.evaluate() != null && operand.evaluate().nonEmpty()) {
+                    count++;
+                }
             }
         }
         return new CellValue(count);

@@ -23,16 +23,18 @@ public class CellGroup extends CellComponent {
         return cellComponents.size();
     }
 
-    public CellValue getCellValue() {
-        double sum = 0.0;
+    public int getNumNonEmptyCells() {
+        int count = 0;
         for (CellComponent component : cellComponents) {
-            if (component.getCellValue() == null) {
-                sum += 0.0;
-            } else {
-                sum += component.getCellValue().asDouble();
+            if (component.getCellValue() != null && component.getCellValue().nonEmpty()) {
+                count++;
             }
         }
-        return new CellValue(sum);
+        return count;
+    }
+
+    public CellValue getCellValue() {
+        throw new UnsupportedOperationException("Method is for cells only.");
     }
 
     public CellValue setCellValue(CellValue cellValue) {

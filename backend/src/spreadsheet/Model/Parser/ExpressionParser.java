@@ -311,16 +311,13 @@ public class ExpressionParser {
                 if (!token.contains(":")) {
                     int[] parsedCoords = parseCellFormat(token);
                     CellComponent cellComponent = CellRepository.getInstance().getReferenceCell(parsedCoords[1], parsedCoords[0]);
+
                     stack.push(new CellReferenceExpression(cellComponent));
+
                 } else { // aggregate operator
                     int index = token.indexOf(":");
                     int[] leftCoords = parseCellFormat(token.substring(0, index));
-                    CellComponent leftCellComponent = CellRepository.getInstance().getReferenceCell(leftCoords[1], leftCoords[0]);
-                    stack.push(new CellReferenceExpression(leftCellComponent));
-
                     int[] rightCoords = parseCellFormat(token.substring(index + 1));
-                    CellComponent rightCellComponent = CellRepository.getInstance().getReferenceCell(rightCoords[1], rightCoords[0]);
-                    stack.push(new CellReferenceExpression(rightCellComponent));
 
                     CellComponent cellGroup = new CellGroup();
                     for(int j = leftCoords[0]; j <= rightCoords[0]; j++){

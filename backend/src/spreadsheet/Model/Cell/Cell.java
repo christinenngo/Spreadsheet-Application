@@ -55,6 +55,13 @@ public class Cell extends CellComponent {
         return 1;
     }
 
+    public int getNumNonEmptyCells() {
+        if(value != null && value.nonEmpty()){
+            return 1;
+        }
+        return 0;
+    }
+
     public void add(CellComponent newCellComponent){
         throw new UnsupportedOperationException("Method is for cell groups only.");
     }
