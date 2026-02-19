@@ -1,6 +1,7 @@
-package spreadsheet.Model.Expression;
+package spreadsheet.Model.Expression.ArithmeticOperators;
 
 import spreadsheet.Model.Cell.CellValue;
+import spreadsheet.Model.Expression.OperatorExpression;
 
 public class DivideOperator extends OperatorExpression {
     @Override

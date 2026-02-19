@@ -1,9 +1,9 @@
-package spreadsheet.Model.Expression;
+package spreadsheet.Model.Expression.AggregateOperators;
 
-import spreadsheet.Model.Cell.CellComponent;
 import spreadsheet.Model.Cell.CellValue;
-
-import java.util.ArrayList;
+import spreadsheet.Model.Expression.CellReferenceExpression;
+import spreadsheet.Model.Expression.Expression;
+import spreadsheet.Model.Expression.OperatorExpression;
 
 public class CountOperator extends OperatorExpression {
     @Override

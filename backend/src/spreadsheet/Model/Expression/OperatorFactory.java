@@ -1,5 +1,14 @@
 package spreadsheet.Model.Expression;
 
+import spreadsheet.Model.Expression.AggregateOperators.AveOperator;
+import spreadsheet.Model.Expression.AggregateOperators.CountAOperator;
+import spreadsheet.Model.Expression.AggregateOperators.CountOperator;
+import spreadsheet.Model.Expression.AggregateOperators.SumOperator;
+import spreadsheet.Model.Expression.ArithmeticOperators.AddOperator;
+import spreadsheet.Model.Expression.ArithmeticOperators.DivideOperator;
+import spreadsheet.Model.Expression.ArithmeticOperators.MultiplyOperator;
+import spreadsheet.Model.Expression.ArithmeticOperators.SubtractOperator;
+
 import java.util.HashMap;
 import java.util.function.Supplier;
 
