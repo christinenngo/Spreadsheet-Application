@@ -22,7 +22,7 @@ public class AveOperator extends OperatorExpression {
         }
 
         if(count == 0) {
-            return new CellValue(0);
+            throw new ArithmeticException("Division by zero");
         }
         return new CellValue(result/count);
     }

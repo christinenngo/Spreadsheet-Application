@@ -197,12 +197,21 @@ public class Milestone2AggregateTests {
     }
 
     @Test
-    public void testCellGroupAveComplex() {
+    public void testCellGroupAveComplex1() {
         String raw = "=AVE(A1:B2, D1, 18/2)";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
         assertEquals(19.0, value.asDouble());
+    }
+
+    @Test
+    public void testCellGroupAveComplex2() {
+        String raw = "=SUM(25, AVE(A1:B2, D1, 18/2))";
+        Expression expression = ExpressionParser.convertExpression(raw);
+
+        CellValue value = expression.evaluate();
+        assertEquals(44.0, value.asDouble());
     }
 
 }

@@ -1,19 +1,15 @@
 # Design Decisions
-Milestone 1
+Milestone 2
 Christine Ngo
 
-> Used the Composite design pattern to allow for the tree structure of expressions, so that each expression can be evaluated recursively with a leaf (OperandExpression) and node (OperatorExpression). This allows for flexibility in the types of expressions that can be created and evaluated.
+> Used the Composite pattern for cells and cell groups to enable uniform reference of individual cells and groups of cells. This allows for easier use and manipulation of both types, since they can be treated the same way in the code.
 > 
-> Used the factory pattern to create instances of the different types of operators to encapsulate the creation logic and make it easier to add new types of operators in the future. It also has the client code only interacting with the factory to create operators, rather than directly instantiating them. I also made it static to avoid the need for creating an instance of the factory every time.
+> Decided not to use lambdas for the Count and CountA functions since using streams would've been more complex and checking the instance of the operands directly makes it more straightforward.
 > 
-> Stored operators in a HashMap in the OperatorFactory to allow for easy retrieval and management of operators, as well as to avoid hardcoding operators in the client code. This allows for dynamic addition or removal of operators without drastically changing the code.
+> Added getNumCells() and getNumNonEmptyCells() methods to the CellGroup class to provide a way to easily retrieve the number of cells and non-empty cells in a group, which is useful for implementing the Count and CountA functions.
 > 
-> Put each operator's logic in its own class that extends OperatorExpression to follow the Single Responsibility Principle, making it easier to maintain and update each operator's logic independently. This also allows for better organization and easy additions to the type of operators available.
+> Extended the OperatorExpression class for CellReferenceExpressions with a reference to a CellComponent to enable cell references in expressions.
 > 
-> Used streams in the evaluate() methods of the operators for more concise code and more efficiency when performing operations on many operands.
+> Used instanceOf for expressionToString() to check the type of the expression, which allows for proper formatting for different types of expressions in the output.
 > 
-> Implemented OperatorExpression as an abstract class to allow for different types of operator expressions that share common functionality without having to reimplement the same methods for each, which allows for better code reuse and easier maintenance.
-> 
-> Made the DivideOperator throw an ArithmeticException when dividing by zero to handle the edge case and prevent undefined results.
-> 
-> I used TDD development by writing tests for the parser and evaluator before implementing the logic for them, which helped ensure that the code was correct and met the requirements. This also made it easier to debug and refactor as I had tests to catch any issues during development.
+> Added getOperatorString() to OperatorFactory to provide a way to get the string representation of an operator, which is useful for expressionToString() when formatting operator expressions. It uses the same HashMap for a fast lookup and to keep it organized and consistent. Also moved creating the HashMap outside getOperator() so it doesn't have to be recreated every time an operator is requested.
