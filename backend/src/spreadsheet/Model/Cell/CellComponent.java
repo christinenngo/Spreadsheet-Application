@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public abstract class CellComponent {
     public abstract void add(CellComponent newCellComponent);
-    public abstract void remove(CellComponent newCellComponent);
+    public abstract void remove(CellComponent cellComponent);
     public abstract int getNumCells();
     public abstract ArrayList<CellComponent> getCellComponents();
     public abstract int getNumNonEmptyCells();

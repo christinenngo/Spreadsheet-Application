@@ -12,8 +12,8 @@ public class CellGroup extends CellComponent {
         cellComponents.add(newCellComponent);
     }
 
-    public void remove(CellComponent newCellComponent) {
-        cellComponents.remove(newCellComponent);
+    public void remove(CellComponent cellComponent) {
+        cellComponents.remove(cellComponent);
     }
 
     public int getNumCells() {
