@@ -2,6 +2,9 @@ package spreadsheet.Model.Expression;
 
 import spreadsheet.Model.Cell.CellComponent;
 import spreadsheet.Model.Cell.CellValue;
+import spreadsheet.Observer.Observer;
+
+import java.util.Set;
 
 
 public class CellReferenceExpression extends OperatorExpression {
@@ -18,5 +21,10 @@ public class CellReferenceExpression extends OperatorExpression {
     @Override
     public CellValue evaluate() {
         return cellComponent.getCellValue();
+    }
+
+    @Override
+    public Set<CellComponent> getReferencedCells() {
+        return Set.of(cellComponent);
     }
 }

@@ -9,9 +9,11 @@
  */
 package spreadsheet.Model.Expression;
 
+import spreadsheet.Model.Cell.CellComponent;
 import spreadsheet.Model.Cell.CellValue;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 /*
  * Expression interface representing an evaluatable expression in the spreadsheet.
@@ -29,5 +31,7 @@ public interface Expression {
     /* Retrieves the list of operands associated with the expression.
      * @return an ArrayList of Expression operands */
     public ArrayList<Expression> getOperands();
+
+    public Set<CellComponent> getReferencedCells();
 
 }
