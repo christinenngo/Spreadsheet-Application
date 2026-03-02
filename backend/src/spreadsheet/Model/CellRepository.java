@@ -30,7 +30,7 @@ import spreadsheet.Model.Cell.CellValue;
 public class CellRepository {
     private static CellRepository instance;
     // Every CellCoord maps to a Cell. In milestone2, you will revise this HashMap have it store "cell components" ( common interface for cells or cell groups)
-    private static HashMap<CellCoord, Cell> cellMap;
+    private static HashMap<CellCoord, CellComponent> cellMap;
 
     public static final int ROWS = 50;
     public static final int COLUMNS = 26;
@@ -74,7 +74,7 @@ public class CellRepository {
         for(int row=0; row<ROWS; row++){
             for(int col=0; col<COLUMNS; col++){
                 CellCoord coord = new CellCoord(row, col);
-                Cell cell = new Cell(new CellValue(null));
+                CellComponent cell = new Cell(new CellValue(null));
                 cellMap.put(coord, cell);
             }
         }
@@ -86,7 +86,7 @@ public class CellRepository {
      * @param col the numerical column (0=a, 1=b, etc.)
      * @return the referenced Cell
      */
-    public Cell getReferenceCell(int row, int col){
+    public CellComponent getReferenceCell(int row, int col){
         return cellMap.get(new CellCoord(row, col));
     }
 
@@ -97,7 +97,7 @@ public class CellRepository {
      */
     public CellCoord findCellCoord(CellComponent target) {
         try {
-            for (Map.Entry<CellCoord, Cell> e : cellMap.entrySet()) {
+            for (Map.Entry<CellCoord, CellComponent> e : cellMap.entrySet()) {
                 if (e.getValue() == target) return e.getKey();
             }
         } catch (Exception ignored) {
@@ -113,7 +113,7 @@ public class CellRepository {
      * @param newCell the CellComponent to add
      * @return the added CellComponent
      */
-    public Cell addCellComponent(int row, int col, Cell newCell){
+    public CellComponent addCellComponent(int row, int col, CellComponent newCell){
         try {
             cellMap.put(new CellCoord(row, col), newCell);
             return newCell;

@@ -39,7 +39,7 @@ public class SpreadsheetController {
                 Map<String, Object> rowJson = buildEmptyRow(r);
                 for (int c = 0; c < COLS; c++) {
                     // Get each cell component from CellRepository and build its JSON representation
-                    Cell comp = CellRepository.getInstance().getReferenceCell(r, c);
+                    CellComponent comp = CellRepository.getInstance().getReferenceCell(r, c);
                     Map<String, Object> cellJson = buildCellJson(comp);
                     rowJson.put(toColumnName(c), cellJson);
                 }
@@ -67,7 +67,7 @@ public class SpreadsheetController {
             return ResponseEntity.badRequest().body(Map.of("error", "Invalid coordinate: " + coord));
         }
 
-        Cell comp = getCellIfExists(cc);
+        CellComponent comp = getCellIfExists(cc);
 
         // Update value if provided
         if (body.containsKey("value")) {
@@ -145,16 +145,16 @@ public class SpreadsheetController {
     * Build JSON representation of a cell
     * Returns Map<String,Object> with keys "value" and "expression"
    --------------------------------------- */
-    private Map<String, Object> buildCellJson(Cell comp) {
+    private Map<String, Object> buildCellJson(CellComponent comp) {
         Map<String, Object> cell = new LinkedHashMap<>();
 
         CellValue val = Optional.ofNullable(comp)
-                .map(Cell::getCellValue)
+                .map(CellComponent::getCellValue)
                 .orElse(new CellValue(null));
         String valueStr = val.toString();
 
         Expression expr = Optional.ofNullable(comp)
-                .map(Cell::getExpression)
+                .map(CellComponent::getExpression)
                 .orElse(null);
         String exprStr = (expr != null) ? "=" + expressionToString(expr) : valueStr;
 
@@ -230,8 +230,8 @@ public class SpreadsheetController {
        If not, create new Cell with null value and add to CellRepository
        Returns the CellComponent at the given coordinates
        --------------------------------------- */
-    private Cell getCellIfExists(CellCoord coord) {
-        Cell existing = CellRepository.getInstance().getReferenceCell(coord.getRow(), coord.getCol());
+    private CellComponent getCellIfExists(CellCoord coord) {
+        CellComponent existing = CellRepository.getInstance().getReferenceCell(coord.getRow(), coord.getCol());
         if (existing != null)
             return existing;
         else
