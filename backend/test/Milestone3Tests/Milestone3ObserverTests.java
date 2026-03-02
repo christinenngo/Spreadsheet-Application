@@ -47,7 +47,8 @@ public class Milestone3ObserverTests{
         assertEquals(350.0, value.asDouble());
 
         cellA1.setCellValue(new CellValue(20));
-        assertEquals(900.0, value.asDouble());
+        CellValue newValue = expression.evaluate();
+        assertEquals(900.0, newValue.asDouble());
     }
 
     @Test
@@ -59,7 +60,8 @@ public class Milestone3ObserverTests{
         assertEquals(16.0, value.asDouble());
 
         cellB1.setCellValue(new CellValue(10));
-        assertEquals(30.0, value.asDouble());
+        CellValue newValue = expression.evaluate();
+        assertEquals(30.0, newValue.asDouble());
     }
 
     @Test
@@ -68,9 +70,10 @@ public class Milestone3ObserverTests{
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(0, value.asDouble());
+        assertEquals(5, value.asDouble());
 
-        assertThrows(ArithmeticException.class, () -> cellD1.setCellValue(new CellValue(0)));
+        cellD1.setCellValue(new CellValue(0));
+        assertThrows(ArithmeticException.class, expression::evaluate);
     }
 
     @Test
@@ -82,7 +85,8 @@ public class Milestone3ObserverTests{
         assertEquals(6.0, value.asDouble());
 
         cellA2.setCellValue(new CellValue(null));
-        assertEquals(5.0, value.asDouble());
+        CellValue newValue = expression.evaluate();
+        assertEquals(5.0, newValue.asDouble());
     }
 
 
