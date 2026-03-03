@@ -3,7 +3,7 @@ package Milestone1Tests;
 import org.junit.jupiter.api.Test;
 
 import spreadsheet.Model.Expression.OperandExpression;
-import spreadsheet.Model.Expression.OperatorExpression;
+import spreadsheet.Model.Expression.ArithmeticOperatorExpression;
 import spreadsheet.Model.Parser.ExpressionParser;
 import spreadsheet.Model.Expression.Expression;
 
@@ -27,7 +27,7 @@ public class Milestone1ParserTests {
         String raw = "=14+6";
         Expression expression = ExpressionParser.convertExpression(raw);
 
-        assertTrue(expression instanceof OperatorExpression);
+        assertTrue(expression instanceof ArithmeticOperatorExpression);
     }
 
     @Test
@@ -35,7 +35,7 @@ public class Milestone1ParserTests {
         String raw = "=(1+4)*2";
         Expression expression = ExpressionParser.convertExpression(raw);
 
-        assertTrue(expression instanceof OperatorExpression);
+        assertTrue(expression instanceof ArithmeticOperatorExpression);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class Milestone1ParserTests {
         String raw = "=0*2+1";
         Expression expression = ExpressionParser.convertExpression(raw);
 
-        assertTrue(expression instanceof OperatorExpression);
+        assertTrue(expression instanceof ArithmeticOperatorExpression);
     }
 
     @Test
@@ -51,7 +51,7 @@ public class Milestone1ParserTests {
         String raw = "=2";
         Expression expression = ExpressionParser.convertExpression(raw);
 
-        assertFalse(expression instanceof OperatorExpression);
+        assertFalse(expression instanceof ArithmeticOperatorExpression);
     }
 
     @Test
@@ -71,7 +71,7 @@ public class Milestone1ParserTests {
 
         Expression expression = ExpressionParser.postfixToExpression(postfix);
 
-        assertTrue(expression instanceof OperandExpression);
+        assertTrue(expression instanceof ArithmeticOperatorExpression);
     }
 
 }

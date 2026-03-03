@@ -1,11 +1,11 @@
 package spreadsheet.Model.Expression.AggregateOperators;
 
 import spreadsheet.Model.Cell.CellValue;
+import spreadsheet.Model.Expression.AggregateOperatorExpression;
 import spreadsheet.Model.Expression.CellReferenceExpression;
 import spreadsheet.Model.Expression.Expression;
-import spreadsheet.Model.Expression.OperatorExpression;
 
-public class CountOperator extends OperatorExpression {
+public class CountOperator extends AggregateOperatorExpression {
     @Override
     public CellValue evaluate() {
         int count = 0;

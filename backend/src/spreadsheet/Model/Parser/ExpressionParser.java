@@ -329,26 +329,33 @@ public class ExpressionParser {
                 }
             }  else {
                 // Create operator Expression; pop operands from stack; push operator to stack
+                AbstractExpression expression = null;
+                AbstractFactory arithmeticFactory = FactoryProducer.getFactory("ARITHMETIC");
+                AbstractFactory aggregateFactory = FactoryProducer.getFactory("AGGREGATE");
+
                 int arguments = 0;
                 if(isAggregateSymbol(token)){
                     arguments = Integer.parseInt(outputQueue.poll());
+                    expression = aggregateFactory.getAggregateOperator(token);
                 } else if (isArithmeticSymbol(token)){
                     arguments = 2;
-                }
-                OperatorExpression expression = OperatorFactory.getOperator(token);
-                ArrayList<Expression> tempOperands = new ArrayList<>();
-
-                for (int i = 0; i < arguments; i++) {
-                    tempOperands.add(stack.pop());
-
-                }
-                Collections.reverse(tempOperands);
-
-                for(Expression operand: tempOperands){
-                    expression.addOperand(operand);
+                    expression = arithmeticFactory.getArithmeticOperator(token);
                 }
 
-                stack.push(expression);
+                if (expression != null) {
+                    ArrayList<Expression> tempOperands = new ArrayList<>();
+
+                    for (int i = 0; i < arguments; i++) {
+                        tempOperands.add(stack.pop());
+                    }
+                    Collections.reverse(tempOperands);
+
+                    for(Expression operand: tempOperands){
+                        expression.addOperand(operand);
+                    }
+
+                    stack.push(expression);
+                }
             }
         }
 

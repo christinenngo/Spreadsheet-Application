@@ -1,11 +1,11 @@
 package spreadsheet.Model.Expression.AggregateOperators;
 
 import spreadsheet.Model.Cell.CellValue;
+import spreadsheet.Model.Expression.AggregateOperatorExpression;
 import spreadsheet.Model.Expression.CellReferenceExpression;
 import spreadsheet.Model.Expression.Expression;
-import spreadsheet.Model.Expression.OperatorExpression;
 
-public class AveOperator extends OperatorExpression {
+public class AveOperator extends AggregateOperatorExpression {
     @Override
     public CellValue evaluate() {
         double result = operands.stream()

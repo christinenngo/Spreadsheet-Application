@@ -201,24 +201,29 @@ public class SpreadsheetController {
             }
         }
 
-        if(expr instanceof OperatorExpression operatorExpression) {
-            String operator = OperatorFactory.getOperatorString(operatorExpression);
-            int numOperands = operatorExpression.getOperands().size();
+        if(expr instanceof ArithmeticOperatorExpression arithmeticExpression) {
+            String operator = ArithmeticOperatorFactory.getOperatorString(arithmeticExpression);
+            int numOperands = arithmeticExpression.getOperands().size();
 
             if("+-*/".contains(operator)) {
-                return "(" + expressionToString(operatorExpression.getOperands().get(0)) + operator + expressionToString(operatorExpression.getOperands().get(1)) + ")";
-            } else {
-                StringBuilder sb = new StringBuilder();
-                sb.append(operator).append("(");
-                for(int i = 0; i < numOperands; i++) {
-                    sb.append(expressionToString(operatorExpression.getOperands().get(i)));
-                    if(i < numOperands - 1) {
-                        sb.append(",");
-                    }
-                }
-                sb.append(")");
-                return sb.toString();
+                return "(" + expressionToString(arithmeticExpression.getOperands().get(0)) + operator + expressionToString(arithmeticExpression.getOperands().get(1)) + ")";
             }
+        }
+
+        if(expr instanceof AggregateOperatorExpression aggregateExpression) {
+            String operator = AggregateOperatorFactory.getOperatorString(aggregateExpression);
+            int numOperands = aggregateExpression.getOperands().size();
+
+            StringBuilder sb = new StringBuilder();
+            sb.append(operator).append("(");
+            for(int i = 0; i < numOperands; i++) {
+                sb.append(expressionToString(aggregateExpression.getOperands().get(i)));
+                if(i < numOperands - 1) {
+                    sb.append(",");
+                }
+            }
+            sb.append(")");
+            return sb.toString();
         }
 
         return expr.toString();

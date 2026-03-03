@@ -7,7 +7,7 @@ import spreadsheet.Observer.Observer;
 import java.util.Set;
 
 
-public class CellReferenceExpression extends OperatorExpression {
+public class CellReferenceExpression extends AbstractExpression {
     private CellComponent cellComponent;
 
     public CellReferenceExpression(CellComponent cellComponent) {

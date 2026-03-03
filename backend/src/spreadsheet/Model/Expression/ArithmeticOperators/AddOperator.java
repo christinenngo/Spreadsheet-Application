@@ -1,9 +1,9 @@
 package spreadsheet.Model.Expression.ArithmeticOperators;
 
 import spreadsheet.Model.Cell.CellValue;
-import spreadsheet.Model.Expression.OperatorExpression;
+import spreadsheet.Model.Expression.ArithmeticOperatorExpression;
 
-public class AddOperator extends OperatorExpression {
+public class AddOperator extends ArithmeticOperatorExpression {
     @Override
     public CellValue evaluate() {
         double result = operands.stream()
