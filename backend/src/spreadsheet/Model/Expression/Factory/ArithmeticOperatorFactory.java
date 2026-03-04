@@ -1,5 +1,7 @@
-package spreadsheet.Model.Expression;
+package spreadsheet.Model.Expression.Factory;
 
+import spreadsheet.Model.Expression.AggregateOperatorExpression;
+import spreadsheet.Model.Expression.ArithmeticOperatorExpression;
 import spreadsheet.Model.Expression.ArithmeticOperators.AddOperator;
 import spreadsheet.Model.Expression.ArithmeticOperators.DivideOperator;
 import spreadsheet.Model.Expression.ArithmeticOperators.MultiplyOperator;

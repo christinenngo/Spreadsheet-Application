@@ -1,4 +1,4 @@
-package spreadsheet.Model.Expression;
+package spreadsheet.Model.Expression.Factory;
 
 import java.util.HashMap;
 import java.util.function.Supplier;

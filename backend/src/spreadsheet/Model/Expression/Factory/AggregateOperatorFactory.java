@@ -1,9 +1,11 @@
-package spreadsheet.Model.Expression;
+package spreadsheet.Model.Expression.Factory;
 
+import spreadsheet.Model.Expression.AggregateOperatorExpression;
 import spreadsheet.Model.Expression.AggregateOperators.AveOperator;
 import spreadsheet.Model.Expression.AggregateOperators.CountAOperator;
 import spreadsheet.Model.Expression.AggregateOperators.CountOperator;
 import spreadsheet.Model.Expression.AggregateOperators.SumOperator;
+import spreadsheet.Model.Expression.ArithmeticOperatorExpression;
 
 import java.util.HashMap;
 import java.util.function.Supplier;

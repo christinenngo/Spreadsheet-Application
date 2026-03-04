@@ -15,6 +15,8 @@ import spreadsheet.Model.Cell.*;
 import spreadsheet.Model.CellCoord;
 import spreadsheet.Model.CellRepository;
 import spreadsheet.Model.Expression.*;
+import spreadsheet.Model.Expression.Factory.AggregateOperatorFactory;
+import spreadsheet.Model.Expression.Factory.ArithmeticOperatorFactory;
 import spreadsheet.Model.Parser.ExpressionParser;
 
 import java.util.*;
