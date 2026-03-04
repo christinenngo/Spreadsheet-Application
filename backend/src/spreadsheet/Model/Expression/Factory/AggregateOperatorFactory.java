@@ -3,6 +3,7 @@ package spreadsheet.Model.Expression.Factory;
 import spreadsheet.Model.Expression.AggregateOperatorExpression;
 import spreadsheet.Model.Expression.AggregateOperators.*;
 import spreadsheet.Model.Expression.ArithmeticOperatorExpression;
+import spreadsheet.Model.Expression.UnaryOperatorExpression;
 
 import java.util.HashMap;
 import java.util.function.Supplier;
@@ -37,9 +38,14 @@ public class AggregateOperatorFactory extends AbstractFactory {
         return operators.get(aggregateType).get();
     }
 
+    @Override
+    public UnaryOperatorExpression getUnaryOperator(String aggregateType) {
+        return null;
+    }
+
     public static String getOperatorString(AggregateOperatorExpression operator) {
-        for(String key : operators.keySet()) {
-            if(operators.get(key).get().getClass() == operator.getClass()) {
+        for (String key : operators.keySet()) {
+            if (operators.get(key).get().getClass() == operator.getClass()) {
                 return key;
             }
         }

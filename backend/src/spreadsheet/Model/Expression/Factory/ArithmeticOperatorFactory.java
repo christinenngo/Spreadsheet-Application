@@ -6,6 +6,7 @@ import spreadsheet.Model.Expression.ArithmeticOperators.AddOperator;
 import spreadsheet.Model.Expression.ArithmeticOperators.DivideOperator;
 import spreadsheet.Model.Expression.ArithmeticOperators.MultiplyOperator;
 import spreadsheet.Model.Expression.ArithmeticOperators.SubtractOperator;
+import spreadsheet.Model.Expression.UnaryOperatorExpression;
 
 import java.util.HashMap;
 import java.util.function.Supplier;
@@ -31,6 +32,11 @@ public class ArithmeticOperatorFactory extends AbstractFactory {
 
     @Override
     public AggregateOperatorExpression getAggregateOperator(String arithmeticType) {
+        return null;
+    }
+
+    @Override
+    public UnaryOperatorExpression getUnaryOperator(String aggregateType) {
         return null;
     }
 
