@@ -48,10 +48,10 @@ public class Milestone3ObserverTests{
         Expression expression = ExpressionParser.convertExpression(raw);
 
         cellA3.setExpression(expression);
-        assertEquals(15.0, cellA3.getCellValue().asDouble());
+        assertEquals(20.0, cellA3.getCellValue().asDouble());
 
-        cellD1.setCellValue(new CellValue(25));
-        assertEquals(17.5, cellA3.getCellValue().asDouble());
+        cellD1.setCellValue(new CellValue(35));
+        assertEquals(25.0, cellA3.getCellValue().asDouble());
     }
 
     @Test
@@ -246,29 +246,29 @@ public class Milestone3ObserverTests{
 
     @Test
     public void testObserverComplex5() {
-        String raw1 = "=AVE(A1:B2)";
+        String raw1 = "=AVE(A1:B2, 0)";
         Expression expression1 = ExpressionParser.convertExpression(raw1);
         cellC1.setExpression(expression1);
 
         String raw2 = "=D1*(C1+25)";
         Expression expression2 = ExpressionParser.convertExpression(raw2);
         cellC2.setExpression(expression2);
-        assertEquals(250.0, cellC2.getCellValue().asDouble());
+        assertEquals(225.0, cellC2.getCellValue().asDouble());
 
         String raw3 = "=SUM(C1, C2)";
         Expression expression3 = ExpressionParser.convertExpression(raw3);
         cellD2.setExpression(expression3);
-        assertEquals(275.0, cellD2.getCellValue().asDouble());
+        assertEquals(245.0, cellD2.getCellValue().asDouble());
 
         String raw4 = "=D2/5";
         Expression expression4 = ExpressionParser.convertExpression(raw4);
         cellA3.setExpression(expression4);
-        assertEquals(55.0, cellA3.getCellValue().asDouble());
+        assertEquals(49.0, cellA3.getCellValue().asDouble());
 
         String raw5 = "=SUM(A1:A3)-100";
         Expression expression5 = ExpressionParser.convertExpression(raw5);
         cellB3.setExpression(expression5);
-        assertEquals(-5.0, cellB3.getCellValue().asDouble());
+        assertEquals(-11.0, cellB3.getCellValue().asDouble());
 
         cellA2.setCellValue(new CellValue(null));
         assertEquals(-44.0, cellB3.getCellValue().asDouble());
@@ -290,15 +290,15 @@ public class Milestone3ObserverTests{
         cellD2.setExpression(expression3);
         assertEquals(275.0, cellD2.getCellValue().asDouble());
 
-        String raw4 = "=D2-230";
+        String raw4 = "=D2-265";
         Expression expression4 = ExpressionParser.convertExpression(raw4);
         cellA3.setExpression(expression4);
-        assertEquals(45.0, cellA3.getCellValue().asDouble());
+        assertEquals(10.0, cellA3.getCellValue().asDouble());
 
         String raw5 = "=(SUM(A1:A3)+5)/A3";
         Expression expression5 = ExpressionParser.convertExpression(raw5);
         cellB3.setExpression(expression5);
-        assertEquals(2.0, cellB3.getCellValue().asDouble());
+        assertEquals(5.5, cellB3.getCellValue().asDouble());
 
         assertThrows(ArithmeticException.class, () -> cellA2.setCellValue(new CellValue(null)));
     }

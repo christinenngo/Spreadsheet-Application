@@ -15,7 +15,7 @@ public class AveOperator extends AggregateOperatorExpression {
         int count = 0;
         for(Expression operand : operands) {
             if(operand instanceof CellReferenceExpression cellReferenceExpression) {
-                count += cellReferenceExpression.getCellComponent().getNumCells();
+                count += cellReferenceExpression.getCellComponent().getNumNonEmptyCells();
             } else {
                 count++;
             }

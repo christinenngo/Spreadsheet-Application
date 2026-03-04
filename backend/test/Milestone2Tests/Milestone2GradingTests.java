@@ -9,24 +9,31 @@ import spreadsheet.Model.Expression.Expression;
 import spreadsheet.Model.Parser.ExpressionParser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class Milestone2AggregateTests {
+
+public class Milestone2GradingTests {
     private CellRepository repository;
-    private CellComponent cellA1, cellA2, cellB1, cellB2, cellC1, cellC2, cellD1, cellD2;
+    private CellComponent cellA1, cellA2, cellB1, cellB2, cellB5, cellC1, cellC2, cellD1, cellD2, cellD4, cellE1, cellE5;
 
     @BeforeEach
-    void setup() {
+    void setup(){
         CellRepository.resetInstance();
         repository = CellRepository.getInstance();
         cellA1 = repository.getReferenceCell(0, 0);
         cellA2 = repository.getReferenceCell(1, 0);
         cellB1 = repository.getReferenceCell(0, 1);
         cellB2 = repository.getReferenceCell(1, 1);
+        cellB5 = repository.getReferenceCell(4, 1);
+
         cellC1 = repository.getReferenceCell(0, 2);
         cellC2 = repository.getReferenceCell(1, 2);
         cellD1 = repository.getReferenceCell(0, 3);
         cellD2 = repository.getReferenceCell(1, 3);
+        cellD4 = repository.getReferenceCell(3, 3);
+
+        cellE1 = repository.getReferenceCell(0, 4);
+        cellE5 = repository.getReferenceCell(4, 4);
+
 
         cellA1.setCellValue(new CellValue(10));
         cellB1.setCellValue(new CellValue(20));
@@ -34,186 +41,158 @@ public class Milestone2AggregateTests {
         cellA2.setCellValue(new CellValue(30));
         cellB2.setCellValue(new CellValue(40));
         cellD2.setCellValue(new CellValue(15));
+
+        cellB5.setCellValue(new CellValue(50));
+        cellD4.setCellValue(new CellValue(40));
+        cellE1.setCellValue(new CellValue(100));
+        cellE5.setCellValue(new CellValue(60));
         // C1 and C2 are not assigned values.
     }
 
+
     @Test
-    public void testSingleCellSum1() {
-        String raw = "=SUM(B1)";
+    public void testGroup1_test1(){
+        String raw = "=(E1/B1+20)/D1+E5+A2-C1*A2";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(20.0, value.asDouble());
+        assertEquals(95.0, value.asDouble());
     }
 
     @Test
-    public void testSingleCellSum2() {
-        String raw = "=SUM(A1,B1,A2)";
+    public void testGroup1_test2(){
+        String raw = "=A1+B1*A2-B6/A1+E1-D1*D2+E5-F1";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(60.0, value.asDouble());
+        assertEquals(695.0, value.asDouble());
     }
 
     @Test
-    public void testCellGroupSum() {
-        String raw = "=SUM(A1:B2)";
+    public void testGroup1_test3(){
+        String raw = "=A1+C1-E1/B1-B6*A1*E1-D1*D2+E5-F1";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(100.0, value.asDouble());
+        assertEquals(-10.0, value.asDouble());
     }
 
     @Test
-    public void testCellGroupSumComplex() {
-        String raw = "=SUM(A1:B2, D1, 10/2)";
+    public void testGroup1_test4(){
+        String raw = "=SUM(A4:B5)-E1/B1-B6*A1*E1-SUM(D1:F4)-F1";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(110.0, value.asDouble());
+        assertEquals(-115.0, value.asDouble());
     }
 
     @Test
-    public void testSingleCellCount1() {
-        String raw = "=COUNT(B2)";
+    public void testGroup1_test5(){
+        String raw = "=100-E1/B1-COUNT(A1:B3)";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(1.0, value.asDouble());
+        assertEquals(89.0, value.asDouble());
     }
 
     @Test
-    public void testSingleCellCount2() {
-        String raw = "=COUNT(A1,B1,A2)";
+    public void testGroup1_test6(){
+        String raw = "=SUM(A4:B5)-E1/B1-COUNTA(A1:F7)";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(3.0, value.asDouble());
+        assertEquals(35.0, value.asDouble());
     }
 
     @Test
-    public void testCellGroupCount() {
-        String raw = "=COUNT(A1:D2)";
+    public void testGroup1_test7(){
+        String raw = "=AVE(A1:B5)-E1/COUNT(A1:E2)-B6*A1*E1-SUM(D1:F4)-COUNTA(A1:F7)";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(8.0, value.asDouble());
+        assertEquals(-150.0, value.asDouble());
     }
 
     @Test
-    public void testCellGroupCountComplex() {
-        String raw = "=COUNT(A1:B2, D1, 10/2)";
+    public void testGroup1_test8(){
+        String raw = "=COUNTA(A1:B5, E1/COUNT(A1:E2), B6*A1*E1-SUM(D1:F4), F1:F7)";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(6.0, value.asDouble());
+        assertEquals(7.0, value.asDouble());
     }
 
     @Test
-    public void testSingleCellCountA1() {
-        String raw = "=COUNTA(B2)";
+    public void testGroup1_test9(){
+        String raw = "=SUM(A1:B5, E1/COUNT(A1:E2)-B6*A1*E1, SUM(D1:F4), COUNTA(A1:F7))";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(1.0, value.asDouble());
+        assertEquals(330, value.asDouble());
     }
 
     @Test
-    public void testSingleCellCountA2() {
-        String raw = "=COUNTA(A1,B1,A2)";
+    public void testGroup2_test1(){
+        String raw = "=SUM(A1,A2,30,40,E5,E4)";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(3.0, value.asDouble());
+        assertEquals(170, value.asDouble());
     }
 
     @Test
-    public void testSingleCellCountA3() {
-        String raw = "=COUNTA(C1,C2)";
+    public void testGroup2_test2(){
+        String raw = "=AVE(A1,A2,30,40,E5, E4)";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(0.0, value.asDouble());
+        assertEquals(34, value.asDouble());
     }
 
     @Test
-    public void testCellGroupCountA() {
-        String raw = "=COUNTA(A1:D2)";
+    public void testGroup2_test3(){
+        String raw = "=60.5+B2/-80-AVE(A1:A2, 10, B2)*SUM(D1:D2)";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(6.0, value.asDouble());
+        assertEquals(-390, value.asDouble());
     }
 
     @Test
-    public void testCellGroupCountAComplex() {
-        String raw = "=COUNTA(A1:B2, C1, 10/2)";
+    public void testGroup2_test4(){
+        String raw = "=AVE(A1:A2, SUM(A1:B1), 20.0*(55+100*(-0.5)))";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(5.0, value.asDouble());
+        assertEquals(42.5, value.asDouble());
     }
 
     @Test
-    public void testSingleCellAve1() {
-        String raw = "=AVE(102)";
+    public void testGroup2_test5(){
+        String raw = "= SUM(A1:B1, 40, 20.0*(55+100*(-0.5))) - AVE(A1:A2)";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(102.0, value.asDouble());
+        assertEquals(150, value.asDouble());
     }
 
     @Test
-    public void testSingleCellAve2() {
-        String raw = "=AVE(10,5*4)";
+    public void testGroup2_test6(){
+        String raw = "=COUNTA(A1:B4, A2:F3, B5, E2:F6, 50) - COUNT(A1:B4, A2:F3, B5, E2:F6, 50)";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(15.0, value.asDouble());
+        assertEquals(-22, value.asDouble());
     }
 
     @Test
-    public void testSingleCellAve3() {
-        String raw = "=AVE(C2)";
-        Expression expression = ExpressionParser.convertExpression(raw);
-
-        assertThrows(ArithmeticException.class, expression::evaluate);
-    }
-
-    @Test
-    public void testSingleCellAve4() {
-        String raw = "=AVE(A1,B1,A2)";
+    public void testGroup2_test7(){
+        String raw = "=SUM(B3:F5, 60, A3, B5, COUNTA(A1:B4, A2:F3, B5, E2:F6, 50)) - AVE(A1:A2)";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(20.0, value.asDouble());
+        assertEquals(250, value.asDouble());
     }
 
-    @Test
-    public void testCellGroupAve() {
-        String raw = "=AVE(A1:B2)";
-        Expression expression = ExpressionParser.convertExpression(raw);
-
-        CellValue value = expression.evaluate();
-        assertEquals(25.0, value.asDouble());
-    }
-
-    @Test
-    public void testCellGroupAveComplex1() {
-        String raw = "=AVE(A1:B2, D1, 18/2, C2)";
-        Expression expression = ExpressionParser.convertExpression(raw);
-
-        CellValue value = expression.evaluate();
-        assertEquals(19.0, value.asDouble());
-    }
-
-    @Test
-    public void testCellGroupAveComplex2() {
-        String raw = "=SUM(25, AVE(A1:B2, D1, 18/2))";
-        Expression expression = ExpressionParser.convertExpression(raw);
-
-        CellValue value = expression.evaluate();
-        assertEquals(44.0, value.asDouble());
-    }
 
 }
