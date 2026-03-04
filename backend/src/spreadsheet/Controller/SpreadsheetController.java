@@ -17,6 +17,7 @@ import spreadsheet.Model.CellRepository;
 import spreadsheet.Model.Expression.*;
 import spreadsheet.Model.Expression.Factory.AggregateOperatorFactory;
 import spreadsheet.Model.Expression.Factory.ArithmeticOperatorFactory;
+import spreadsheet.Model.Expression.Factory.UnaryOperatorFactory;
 import spreadsheet.Model.Parser.ExpressionParser;
 
 import java.util.*;
@@ -205,10 +206,9 @@ public class SpreadsheetController {
 
         if(expr instanceof ArithmeticOperatorExpression arithmeticExpression) {
             String operator = ArithmeticOperatorFactory.getOperatorString(arithmeticExpression);
-            int numOperands = arithmeticExpression.getOperands().size();
 
             if("+-*/".contains(operator)) {
-                return "(" + expressionToString(arithmeticExpression.getOperands().get(0)) + operator + expressionToString(arithmeticExpression.getOperands().get(1)) + ")";
+                return "(" + expressionToString(arithmeticExpression.getOperands().get(0)) + " " + operator + " " + expressionToString(arithmeticExpression.getOperands().get(1)) + ")";
             }
         }
 
@@ -226,6 +226,19 @@ public class SpreadsheetController {
             }
             sb.append(")");
             return sb.toString();
+        }
+
+        if(expr instanceof UnaryOperatorExpression unaryExpression) {
+            String operator = UnaryOperatorFactory.getOperatorString(unaryExpression);
+
+            if(operator.equals("++") || operator.equals("--")) {
+                return " " + operator +
+                        expressionToString(unaryExpression.getOperands().get(0));
+            } else {
+                return operator + "(" +
+                        expressionToString(unaryExpression.getOperands().get(0)) +
+                        ")";
+            }
         }
 
         return expr.toString();
