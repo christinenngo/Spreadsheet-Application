@@ -110,7 +110,8 @@ public class ExpressionParser {
         regexBuilder.append("|(?i)(SUM|AVE|COUNT|COUNTA|MIN|MAX|MEDIAN|ABS|NEG)(?=\\()");
 
         // Part for unary operators (++, --)
-        regexBuilder.append("|\\+\\+|--");
+        regexBuilder.append("|(?:(?<=^)|(?<=\\s)|(?<=\\())\\+\\+");
+        regexBuilder.append("|(?:(?<=^)|(?<=\\s)|(?<=\\())--");
 
         // Part for numbers (integers and decimals)
         regexBuilder.append("|(?<![\\d\\)])-?\\d+(\\.\\d+)?");
@@ -178,8 +179,13 @@ public class ExpressionParser {
             } else if (isAggregateSymbol(token)) {  // Aggregate function
                 operatorDeque.push(token);  // Push aggregate to operator stack
                 argumentDeque.push(1);
-            } else if (isArithmeticSymbol(token) || isUnarySymbol(token)) {  // Arithmetic or Unary operator
+            } else if (isArithmeticSymbol(token)) {  // Arithmetic operator
                 while (!operatorDeque.isEmpty() && precedence(operatorDeque.peek()) >= precedence(token)) {
+                    outputQueue.offer(operatorDeque.pop());  // Pop operators to queue based on precedence
+                }
+                operatorDeque.push(token);  // Push current operator onto stack
+            } else if (isUnarySymbol(token)) {  // Unary operator
+                while (!operatorDeque.isEmpty() && precedence(operatorDeque.peek()) > precedence(token)) {
                     outputQueue.offer(operatorDeque.pop());  // Pop operators to queue based on precedence
                 }
                 operatorDeque.push(token);  // Push current operator onto stack

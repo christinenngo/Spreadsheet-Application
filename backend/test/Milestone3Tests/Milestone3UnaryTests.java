@@ -8,7 +8,10 @@ import spreadsheet.Model.CellRepository;
 import spreadsheet.Model.Expression.Expression;
 import spreadsheet.Model.Parser.ExpressionParser;
 
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class Milestone3UnaryTests {
     private CellRepository repository;
@@ -56,11 +59,36 @@ public class Milestone3UnaryTests {
 
     @Test
     public void testIncrement3() {
-        String raw = "=++C1";
+        String raw = "=++ ++C1";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(1.0, value.asDouble());
+        assertEquals(2.0, value.asDouble());
+    }
+
+    @Test
+    public void testIncrement4() {
+        String raw = "=++C1*2";
+        Expression expression = ExpressionParser.convertExpression(raw);
+
+        CellValue value = expression.evaluate();
+        assertEquals(2.0, value.asDouble());
+    }
+
+    @Test
+    public void testIncrement5() {
+        String raw = "=A1+ ++A2";
+        Expression expression = ExpressionParser.convertExpression(raw);
+
+        CellValue value = expression.evaluate();
+        assertEquals(41.0, value.asDouble());
+    }
+
+    @Test
+    public void testIncrement6() {
+        String raw = "=A1+++B1";
+
+        assertThrows(NoSuchElementException.class, () -> ExpressionParser.convertExpression(raw));
     }
 
     @Test
@@ -83,11 +111,36 @@ public class Milestone3UnaryTests {
 
     @Test
     public void testDecrement3() {
-        String raw = "=--C1";
+        String raw = "=-- --C1";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
-        assertEquals(-1.0, value.asDouble());
+        assertEquals(-2.0, value.asDouble());
+    }
+
+    @Test
+    public void testDecrement4() {
+        String raw = "=--C1*2";
+        Expression expression = ExpressionParser.convertExpression(raw);
+
+        CellValue value = expression.evaluate();
+        assertEquals(-2.0, value.asDouble());
+    }
+
+    @Test
+    public void testDecrement5() {
+        String raw = "=A1- --A2";
+        Expression expression = ExpressionParser.convertExpression(raw);
+
+        CellValue value = expression.evaluate();
+        assertEquals(-19.0, value.asDouble());
+    }
+
+    @Test
+    public void testDecrement6() {
+        String raw = "=A1---B1";
+
+        assertThrows(NoSuchElementException.class, () -> ExpressionParser.convertExpression(raw));
     }
 
     @Test
@@ -102,6 +155,24 @@ public class Milestone3UnaryTests {
     @Test
     public void testAbs2() {
         String raw = "=ABS(SUM(A1:B2)-200)";
+        Expression expression = ExpressionParser.convertExpression(raw);
+
+        CellValue value = expression.evaluate();
+        assertEquals(100.0, value.asDouble());
+    }
+
+    @Test
+    public void testAbs3() {
+        String raw = "=ABS(A1:B2)";
+        Expression expression = ExpressionParser.convertExpression(raw);
+
+        CellValue value = expression.evaluate();
+        assertEquals(100.0, value.asDouble());
+    }
+
+    @Test
+    public void testAbs4() {
+        String raw = "=ABS(NEG(A1:B2))";
         Expression expression = ExpressionParser.convertExpression(raw);
 
         CellValue value = expression.evaluate();
@@ -142,5 +213,14 @@ public class Milestone3UnaryTests {
 
         CellValue value = expression.evaluate();
         assertEquals(100.0, value.asDouble());
+    }
+
+    @Test
+    public void testNeg5() {
+        String raw = "=NEG(ABS(A1:B2-200))";
+        Expression expression = ExpressionParser.convertExpression(raw);
+
+        CellValue value = expression.evaluate();
+        assertEquals(-100.0, value.asDouble());
     }
 }
