@@ -151,8 +151,8 @@ public class Milestone3SampleTests {
 
         expression = ExpressionParser.convertExpression("=++C1"); // You can give an error or return 1, since C1 is empty.
         // We will not test for this in milestone3
-//        value = expression.evaluate();
-//        assertEquals(1, value.asDouble()); // C1, C2, E2 are empty
+        value = expression.evaluate();
+        assertEquals(1, value.asDouble()); // C1, C2, E2 are empty
     }
 
     @Test

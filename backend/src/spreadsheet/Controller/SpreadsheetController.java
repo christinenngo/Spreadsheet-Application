@@ -195,7 +195,7 @@ public class SpreadsheetController {
             if(component instanceof CellGroup cellGroup) {
                 ArrayList<CellComponent> cells = cellGroup.getCellComponents();
                 CellCoord leftCoord = CellRepository.getInstance().findCellCoord(cells.get(0));
-                CellCoord rightCoord = CellRepository.getInstance().findCellCoord(cells.get(1));
+                CellCoord rightCoord = CellRepository.getInstance().findCellCoord(cells.get(cells.size() - 1));
 
                 return convertCoord(leftCoord.getRow(), leftCoord.getCol()) + ":" + convertCoord(rightCoord.getRow(), rightCoord.getCol());
             } else {
