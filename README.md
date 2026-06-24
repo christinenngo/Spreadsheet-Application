@@ -1,1 +1,1 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/ZBnyw6Ou)
+A simple spreadsheet application built using Java and React. Uses design patterns to organize code according to object-oriented design principles and make the code flexible, easy to read and maintain.
