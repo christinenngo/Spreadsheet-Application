@@ -1,4 +1,3 @@
-# CS 4233 - Term Project  - C Term
 ___
 ### Context
 ___
