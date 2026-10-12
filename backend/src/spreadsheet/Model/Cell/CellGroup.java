@@ -88,4 +88,9 @@ public class CellGroup extends CellComponent implements Observer, Subject {
         notifyObservers();
     }
 
+    @Override
+    public List<Observer> getObservers() {
+        return observers;
+    }
+
 }

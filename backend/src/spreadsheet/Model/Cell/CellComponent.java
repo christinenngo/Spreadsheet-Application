@@ -4,6 +4,7 @@ import spreadsheet.Model.CellCoord;
 import spreadsheet.Model.Expression.Expression;
 import spreadsheet.Observer.Observer;
 
+import java.util.List;
 import java.util.ArrayList;
 
 public abstract class CellComponent {
@@ -19,4 +20,5 @@ public abstract class CellComponent {
     public abstract void addObserver(Observer observer);
     public abstract void removeObserver(Observer observer);
     public abstract void notifyObservers();
+    public abstract List<Observer> getObservers();
 }

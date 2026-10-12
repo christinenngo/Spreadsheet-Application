@@ -129,9 +129,10 @@ public class SpreadsheetController {
         EditCommand command = new EditCommand(comp, oldValue, newValue, oldExpression, newExpression);
         commandStack.executeCommand(command);
 
-        Map<String, Object> rowJson = buildEmptyRow(cc.getRow());
-        rowJson.put(toColumnName(cc.getCol()), buildCellJson(comp));
-        return ResponseEntity.ok(rowJson);
+        Map<String, Object> updatedCells = new HashMap<>();
+        CellJsonFormatter.Response(comp, coord, updatedCells, this, new HashSet<>());
+
+        return ResponseEntity.ok(updatedCells);
     }
 
     /* ---------------------------------------
@@ -181,7 +182,7 @@ public class SpreadsheetController {
     * Build JSON representation of a cell
     * Returns Map<String,Object> with keys "value" and "expression"
    --------------------------------------- */
-    private Map<String, Object> buildCellJson(CellComponent comp) {
+    public Map<String, Object> buildCellJson(CellComponent comp) {
         Map<String, Object> cell = new LinkedHashMap<>();
 
         CellValue val = Optional.ofNullable(comp)
@@ -318,7 +319,7 @@ public class SpreadsheetController {
     /* ---------------------------------------
        Convert row and column indices to cell coordinate string (e.g., 0,0 -> "A1")
        --------------------------------------- */
-    private String convertCoord(int row, int col) {
+    public String convertCoord(int row, int col) {
         return toColumnName(col) + (row + 1);
     }
 

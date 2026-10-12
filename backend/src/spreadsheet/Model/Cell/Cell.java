@@ -121,4 +121,9 @@ public class Cell extends CellComponent implements Observer, Subject {
         }
         notifyObservers();
     }
+
+    @Override
+    public List<Observer> getObservers() {
+        return observers;
+    }
 }

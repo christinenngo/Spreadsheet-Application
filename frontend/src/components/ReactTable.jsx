@@ -73,7 +73,23 @@ const ReactSpreadSheet = () => {
             console.log(`Cell ${coord} updated successfully.`)
 
             if (updateSheet) {
-                fetchSpreadsheet();// no error -> refresh data
+                const updatedCells = await response.json();
+
+                setData(prevData =>
+                    prevData.map((row, rowIndex) => {
+                        const updatedRow = { ...row };
+
+                        colLabels.forEach(col => {
+                            const coord = `${col}${rowIndex + 1}`;
+
+                            if (updatedCells[coord]) {
+                                updatedRow[col] = updatedCells[coord];
+                            }
+                        })
+
+                        return updatedRow;
+                    })
+                )
             }
         }
         catch (err) {
