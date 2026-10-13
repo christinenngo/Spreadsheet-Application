@@ -90,6 +90,16 @@ const ReactSpreadSheet = () => {
                         return updatedRow;
                     })
                 )
+
+                if (selectedCell &&
+                    selectedCell.row === row &&
+                    selectedCell.col === col) {
+                    const updatedCell = updatedCells[coord];
+
+                    if (updatedCell) {
+                        setExpressionBar(updatedCell.expression || updatedCell.value || "");
+                    }
+                }
             }
         }
         catch (err) {
